@@ -16,8 +16,17 @@ elm init
 ```
 
 # build
+
+下記コマンドでindex.htmlが生成される
+
 ```
 elm make src/Main.elm
+```
+
+ただしindex.htmlを生成した場合は独自のCSSを追加することができないため`--output`オプションを指定してjsファイルを生成することで自前のHTMLを利用することができる。
+
+```
+elm make src/Main.elm --output main.js
 ```
 
 # start dev server
