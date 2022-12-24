@@ -1,4 +1,6 @@
-# install elm
+# install
+
+## install elm
 
 install by asdf
 
@@ -7,6 +9,18 @@ asdf plugin add elm
 asdf list all elm
 asdf install elm <version>
 asdf local ghq <version>
+```
+
+## install elm-format
+
+```
+npm install -g elm-format
+```
+
+## install elm-test
+
+```
+npm install -g elm-test
 ```
 
 # init project
