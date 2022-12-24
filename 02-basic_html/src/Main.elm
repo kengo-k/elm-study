@@ -7,11 +7,19 @@ module Main exposing (main)
 
 -- HtmlモジュールからHTML型とdiv関数, text関数をインポートする
 
-import Html exposing (Html, div, text)
+import Html exposing (..)
 import Html.Attributes exposing (class)
+
+
+createList : List String -> List (Html msg)
+createList values =
+    List.map (\v -> li [] [ text v ]) values
 
 
 main : Html msg
 main =
     -- div関数は引数としてリストを２つ取る。１つ目が属性のリスト、２つ目は小要素のリストとなる
-    div [ class "header" ] [ text "Hello, Elm HTML!" ]
+    div [ class "header" ]
+        [ text "Hello, Elm HTML!"
+        , ul [] (createList [ "value1", "value2", "value3" ])
+        ]
