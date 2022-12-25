@@ -20,4 +20,16 @@ suite =
             \() ->
                 haveBirthday { name = "Tanaka", age = 32 }
                     |> Expect.equal { name = "Tanaka", age = 33 }
+        , test "should sumstr ['1','2','3'] equals 6" <|
+            \() ->
+                sumstr [ "1", "2", "3" ]
+                    |> Expect.equal 6
+        , test "should doublePlusOne 50 equals 101" <|
+            \() ->
+                doublePlusOne 50
+                    |> Expect.equal 101
+        , test "should doublePlusOne1 50 equals 101" <|
+            \() ->
+                doublePlusOne1 50
+                    |> Expect.equal 101
         ]

@@ -49,6 +49,40 @@ haveBirthday2 person =
     { person | age = person.age + 1 }
 
 
+
+-- パイプライン関数の例(まずはパイパラインを使わない例)
+-- 数値を表現する文字列のリストを合計した値を返す
+
+
+add1 : Int -> Int
+add1 n =
+    n + 1
+
+
+double : Int -> Int
+double n =
+    n * 2
+
+
+
+-- 二倍してから1を足す
+
+
+doublePlusOne : Int -> Int
+doublePlusOne n =
+    add1 (double n)
+
+
+doublePlusOne1 : Int -> Int
+doublePlusOne1 n =
+    n |> double |> add1
+
+
+sumstr : List String -> Int
+sumstr numStrs =
+    List.foldl (+) 0 (List.map (\s -> Maybe.withDefault 0 (String.toInt s)) numStrs)
+
+
 main : Html.Html msg
 main =
     text message
