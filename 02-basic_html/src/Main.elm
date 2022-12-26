@@ -7,19 +7,45 @@ module Main exposing (main)
 
 -- HtmlモジュールからHTML型とdiv関数, text関数をインポートする
 
+import Browser
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (type_, value)
+import Html.Events exposing (onClick)
 
 
-createList : List String -> List (Html msg)
-createList values =
-    List.map (\v -> li [] [ text v ]) values
+type Msg
+    = CountUp
+    | CountDown
 
 
-main : Html msg
-main =
-    -- div関数は引数としてリストを２つ取る。１つ目が属性のリスト、２つ目は小要素のリストとなる
-    div [ class "header" ]
-        [ text "Hello, Elm HTML!"
-        , ul [] (createList [ "value1", "value2", "value3" ])
+type alias Model =
+    { value : Int }
+
+
+update : Msg -> Model -> Model
+update msg model =
+    case msg of
+        CountUp ->
+            { model | value = model.value + 1 }
+
+        CountDown ->
+            { model | value = model.value - 1 }
+
+
+view : Model -> Html Msg
+view model =
+    div []
+        [ input [ type_ "number", value (String.fromInt model.value) ]
+            []
+        , button
+            [ onClick CountUp ]
+            [ text "+1" ]
+        , button
+            [ onClick CountDown ]
+            [ text "-1" ]
         ]
+
+
+main : Program () Model Msg
+main =
+    Browser.sandbox { init = { value = 0 }, update = update, view = view }
