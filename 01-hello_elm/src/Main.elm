@@ -1,6 +1,8 @@
 module Main exposing (..)
 
 import Html exposing (text)
+import Json.Decode exposing (decodeString, int, string, succeed)
+import Json.Decode.Pipeline exposing (required)
 
 
 hello : String -> String
@@ -27,6 +29,23 @@ type alias Person =
     { name : String
     , age : Int
     }
+
+
+personDecoder : Json.Decode.Decoder Person
+personDecoder =
+    succeed Person
+        |> required "name" string
+        |> required "age" int
+
+
+person1 : Result Json.Decode.Error Person
+person1 =
+    decodeString personDecoder """{"name": "Yamada", "age": 20}"""
+
+
+person2 : Result Json.Decode.Error Person
+person2 =
+    decodeString personDecoder """{"name": "Yamada", "age": "20"}"""
 
 
 
