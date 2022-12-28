@@ -4,7 +4,8 @@ module Main exposing (..)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (src)
+import Html.Attributes exposing (height, src, width)
+import Html.Events exposing (onClick)
 import Http
 import Json.Decode exposing (string, succeed)
 import Json.Decode.Pipeline exposing (required)
@@ -20,6 +21,7 @@ type alias Model =
 
 type Message
     = Load (Result Http.Error Dog)
+    | Reload
 
 
 dogDecoder : Json.Decode.Decoder Dog
@@ -46,6 +48,9 @@ update msg model =
         Load (Err _) ->
             ( model, Cmd.none )
 
+        Reload ->
+            ( model, fetch )
+
 
 view : Model -> Html Message
 view model =
@@ -59,7 +64,12 @@ view model =
 
 viewDog : Dog -> Html Message
 viewDog dog =
-    div [] [ img [ src dog.message ] [] ]
+    div []
+        [ img [ src dog.message, width 500, height 500 ] []
+        , button
+            [ onClick Reload ]
+            [ text "Reload" ]
+        ]
 
 
 subscriptions : Model -> Sub Message
