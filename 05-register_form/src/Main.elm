@@ -155,6 +155,31 @@ decoder2 =
         |> field ageDecoder_
 
 
+fa : Decoder Form Error (Int -> b) -> Decoder Form Error b
+fa =
+    field ageDecoder_
+
+
+fn : Decoder Form Error (String -> b) -> Decoder Form Error b
+fn =
+    field nameDecoder_
+
+
+tp : Decoder i err (String -> Int -> Person)
+tp =
+    top Person
+
+
+fnp : Decoder Form Error (Int -> Person)
+fnp =
+    fn tp
+
+
+fafnp : Decoder Form Error Person
+fafnp =
+    fa fnp
+
+
 type alias Form =
     { name : String, age : String }
 
