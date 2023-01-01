@@ -2,6 +2,7 @@ module TestMain exposing (..)
 
 import Expect
 import List exposing (foldl)
+import Main
 import Test exposing (..)
 
 
@@ -11,8 +12,13 @@ suite =
         [ test "sum 1..10 equals 55" <|
             \() ->
                 let
-                    sum =
-                        foldl (+) 0 <| List.range 1 10
+                    result =
+                        Main.getProduct { name = "", price = "" }
                 in
-                Expect.equal 55 sum
+                case result of
+                    Ok _ ->
+                        Expect.fail "should fail"
+
+                    Err errors ->
+                        Expect.equal (List.length errors) 2
         ]
